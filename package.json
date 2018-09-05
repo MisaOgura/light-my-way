@@ -1,0 +1,8 @@
+{
+  "name": "light-my-way",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/MisaOgura/light-my-way",
+  "author": "MisaOgura <misa.ogura01@gmail.com>",
+  "license": "MIT"
+}
