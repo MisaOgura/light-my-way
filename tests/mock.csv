@@ -1,0 +1,12 @@
+Crime ID,Month,Reported by,Falls within,Longitude,Latitude,Location,LSOA code,LSOA name,Crime type,Last outcome category,Context
+e9fe81ec7a6f5d2a80445f04be3d7e92831dbf3090744ebf94c46f359ca94854,2018-07,Metropolitan Police Service,Metropolitan Police Service,0.774271,51.148147,On or near Bethersden Road,E01024031,Ashford 012B,Other theft,Under investigation,
+076b796ba1e1ba3f69c9144e2aa7a7bc85b61d51bf7a5966fa1a45fecb1c6aca,2018-07,Metropolitan Police Service,Metropolitan Police Service,-1.007293,51.893136,On or near Prison,E01017674,Aylesbury Vale 010D,Other crime,Awaiting court outcome,
+163e996d58995cf87d14f15711fbd87052681919f02029af4739c2eb88be7f5e,2018-07,Metropolitan Police Service,Metropolitan Police Service,0.744706,52.038219,On or near Hillside Road,E01029918,Babergh 007F,Violence and sexual offences,Under investigation,
+,2018-07,Metropolitan Police Service,Metropolitan Police Service,0.137065,51.583672,On or near Police Station,E01000027,Barking and Dagenham 001A,Anti-social behaviour,,
+,2018-07,Metropolitan Police Service,Metropolitan Police Service,,51.595164,On or near Park/Open Space,E01000027,Barking and Dagenham 001A,Anti-social behaviour,,
+,2018-07,Metropolitan Police Service,Metropolitan Police Service,0.134947,51.588063,On or near Mead Grove,E01000027,Barking and Dagenham 001A,Anti-social behaviour,,
+,2018-07,Metropolitan Police Service,Metropolitan Police Service,0.137065,,On or near Police Station,E01000027,Barking and Dagenham 001A,Anti-social behaviour,,
+d61cb75481d98c4b63a6aa544895964ec868e05a5d6da121db173ca23e6e2ee8,2018-07,Metropolitan Police Service,Metropolitan Police Service,,,No Location,,,Other crime,Investigation complete; no suspect identified,
+,2018-07,Metropolitan Police Service,Metropolitan Police Service,0.134947,51.588063,On or near Mead Grove,E01000027,Barking and Dagenham 001A,Anti-social behaviour,,
+,2018-07,Metropolitan Police Service,Metropolitan Police Service,0.134947,51.588063,On or near Mead Grove,E01000027,Barking and Dagenham 001A,Anti-social behaviour,,
+,2018-07,Metropolitan Police Service,Metropolitan Police Service,0.137065,51.583672,On or near Police Station,E01000027,Barking and Dagenham 001A,Anti-social behaviour,,
