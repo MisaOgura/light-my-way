@@ -5,18 +5,17 @@ row count per coordinate (long, lat) and returns a GeoJSON which can be
 used as a data source for Mapbox APIs.
 
 Usage:
-    london_crime.py <input> [-o=<output>]
+    london_crime.py <input>
     london_crime.py (-h | --help)
 
 Options:
     <input>             Inout csv file with longtitude and latitude fields.
-    -o=<output>         Output file [default: output.geojson].
     -h --help           Show this screen.
 """
-
 import sys
 import json
 import pandas as pd
+from pathlib import Path
 from docopt import docopt
 
 
@@ -28,13 +27,14 @@ def main():
     arguments = docopt(__doc__, version='0.1')
 
     input_file = arguments['<input>']
-    output_file = arguments['-o']
+
+    basename = Path(input_file).resolve().stem
 
     london_crime = LondonCrime(input_file)
 
     data = london_crime.to_geojson()
 
-    with open(output_file, 'w') as output:
+    with open('geojson/{}.geojson'.format(basename), 'w') as output:
         json.dump(data, output)
 
 
