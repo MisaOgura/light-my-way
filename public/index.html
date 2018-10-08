@@ -29,6 +29,7 @@
         body {
             margin: 0;
             padding: 0;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
 
         #map {
@@ -37,11 +38,45 @@
             bottom: 0;
             width: 100%;
         }
+
+        h1 {
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2dc4b2;
+        }
+
+        #console {
+            position: absolute;
+            width: 260px;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            opacity: 0.9;
+            border-radius: 8px;
+        }
     </style>
 </head>
 
 <body>
     <div id='map'></div>
+
+    <div id='console'>
+        <h1>London Crime Heatmap</h1>
+        <p>Data: <a href='https://data.police.uk/'>data.police.uk</a></p>
+        <p>Jurisdiction: Metropolitan Police Service</p>
+        <p>Period: July 2018</p>
+        <p>Code: <a href='https://github.com/MisaOgura/light-my-way'>GitHub repository</a></p>
+        <p>Author: <a href='https://github.com/MisaOgura/'>Misa Ogura</a></p>
+    </div>
+
     <script>
         // read-only public key - safe to be used on the client side
         mapboxgl.accessToken = 'pk.eyJ1IjoibWlzYW9ndXJhIiwiYSI6ImNqbGgxMHFkejE5ZDUzcHFnNjYxZnpqYTkifQ.juKlGPuT2kgzN-6x_Yhc7w';
@@ -50,7 +85,7 @@
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v9',
-            center: [-0.118092, 51.509865],
+            center: [-0.158092, 51.509865],
             zoom: 10
         });
 
@@ -126,9 +161,9 @@
                         type: 'exponential',
                         stops: [
                             [{ zoom: 15, value: 1 }, 2],
-                            [{ zoom: 15, value: 239 }, 20],
+                            [{ zoom: 15, value: 239 }, 15],
                             [{ zoom: 22, value: 1 }, 20],
-                            [{ zoom: 22, value: 239 }, 100],
+                            [{ zoom: 22, value: 239 }, 80],
                         ]
                     },
                     'circle-color': {
