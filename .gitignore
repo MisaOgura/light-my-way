@@ -1,6 +1,5 @@
-.ipynb_checkpoints
-venv
-__pycache__
-.cache
-.vscode
-.log
+.ipynb_checkpoints/
+.vscode/
+venv/
+**cache**/
+*.log
