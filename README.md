@@ -4,6 +4,10 @@
 
 Walking in London at night can be scary - it would be good if your map guides you through streets with less crime and/or better lighting, even if it takes a bit longer than the shortest route!
 
+## Iteration
+
+1. [London Crime Heatmap](https://light-my-way.firebaseapp.com/) - using data from the Met Police for on street crime in July 2018. I intend to add a time slider to visualise changes over time.
+
 ## Data Source
 
 - [Camden Street Lighting](https://opendata.camden.gov.uk/Environment/Camden-Street-Lighting/dfq3-8wzu)

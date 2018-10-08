@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <!-- Firebase app config -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBwyOYk21sd6SurTuJ7GpScl7EKRgFCxJc",
+            authDomain: "light-my-way.firebaseapp.com",
+            databaseURL: "https://light-my-way.firebaseio.com",
+            projectId: "light-my-way",
+            storageBucket: "light-my-way.appspot.com",
+            messagingSenderId: "1004475912530"
+        };
+    firebase.initializeApp(config);
+    </script>
+
+    <!-- Mapbox GL JS and style sheets -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <script>
+        // read-only public key - safe to be used on the client side
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWlzYW9ndXJhIiwiYSI6ImNqbGgxMHFkejE5ZDUzcHFnNjYxZnpqYTkifQ.juKlGPuT2kgzN-6x_Yhc7w';
+
+        // Initialise a map object
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/dark-v9',
+            center: [-0.118092, 51.509865],
+            zoom: 10
+        });
+
+        map.on('load', function() {
+
+            // Add a heatmap layer
+            map.addSource('crimes', {
+                type: 'geojson',
+                data: './geojson/2018-07-metropolitan-street.geojson'
+            });
+
+            map.addLayer({
+                id: 'crimes-heat',
+                type: 'heatmap',
+                source: 'crimes',
+                maxzoom: 15,
+                paint: {
+                    // increase weight as number of crimes increases
+                    'heatmap-weight': {
+                        property: 'crimes',
+                        type: 'exponential',
+                        stops: [
+                            [1, 0],
+                            [239, 1]
+                        ]
+                    },
+                    // increase intensity as zoom level increases
+                    'heatmap-intensity': {
+                        stops: [
+                            [10, 1],
+                            [15, 15]
+                        ]
+                    },
+                    // assign color values to points depending on their density
+                    'heatmap-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['heatmap-density'],
+                        0, 'rgba(255,255,178,0)',
+                        0.2, 'rgb(254,204,92)',
+                        0.4, 'rgb(253,141,60)',
+                        0.6, 'rgb(240,59,32)',
+                        0.8, 'rgb(189,0,38)'
+                    ],
+                    // increase radius as zoom increases
+                    'heatmap-radius': {
+                        stops: [
+                            [10, 12],
+                            [15, 20]
+                        ]
+                    },
+                    // decrease opacity to transition into the circle layer
+                    'heatmap-opacity': {
+                        default: 1,
+                        stops: [
+                            [14, 1],
+                            [16, 0]
+                        ]
+                    },
+                }
+            }, 'waterway-label');
+
+            // Add a circle layer
+            map.addLayer({
+                id: 'crimes-point',
+                type: 'circle',
+                source: 'crimes',
+                minzoom: 14,
+                paint: {
+                    // increase the radius of the circle as the zoom level and total crime value increases
+                    'circle-radius': {
+                        property: 'crimes',
+                        type: 'exponential',
+                        stops: [
+                            [{ zoom: 15, value: 1 }, 2],
+                            [{ zoom: 15, value: 239 }, 20],
+                            [{ zoom: 22, value: 1 }, 20],
+                            [{ zoom: 22, value: 239 }, 100],
+                        ]
+                    },
+                    'circle-color': {
+                        property: 'crimes',
+                        type: 'exponential',
+                        stops: [
+                            [0, 'rgba(254,229,217,0)'],
+                            [40, 'rgb(252,187,161)'],
+                            [80, 'rgb(252,146,114)'],
+                            [120, 'rgb(251,106,74)'],
+                            [160, 'rgb(239,59,44)'],
+                            [200, 'rgb(203,24,29)'],
+                            [240, 'rgb(153,0,13)']
+                        ]
+                    },
+                    'circle-stroke-color': 'white',
+                    'circle-stroke-width': 1,
+                    'circle-opacity': {
+                        stops: [
+                            [14, 0],
+                            [16, 1]
+                        ]
+                    }
+                }
+            }, 'waterway-label');
+        });
+
+        // Interactive feature for the circle layer
+        map.on('click', 'crimes-point', function(e) {
+            new mapboxgl.Popup()
+                .setLngLat(e.features[0].geometry.coordinates)
+                .setHTML('<b>No. of crimes:</b> ' + e.features[0].properties.crimes)
+                .addTo(map);
+            });
+    </script>
+</body>
+
+</html>
