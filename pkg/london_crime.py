@@ -48,7 +48,7 @@ class LondonCrime():
         self._df['Coordinate'] = \
             self._df.apply(lambda x: (x['Longitude'], x['Latitude']), axis=1)
 
-        self._crime_freq_sr = self._df.groupby('Coordinate').size()
+        self._crime_sr = self._df.groupby(['Coordinate', 'Crime type']).size()
 
     def to_geojson(self):
         # TODO - use https://github.com/frewsxcv/python-geojson
@@ -57,27 +57,42 @@ class LondonCrime():
             "features": []
         }
 
-        for index, value in self._crime_freq_sr.iteritems():
-            data = {
-                'type': 'Feature',
-                'properties': {
-                    'crimes': value
-                },
-                'geometry': {
-                    'type': 'Point',
-                    'coordinates': [index[0], index[1]]
-                }
-            }
+        last_coord = None
+        data = None
 
-            geojson['features'].append(data)
+        for (coord, crime_type), crime_count in self._crime_sr.iteritems():
+
+            # Create a new data if it's the new location
+            if coord != last_coord:
+                if data is not None:
+                    geojson['features'].append(data)
+
+                # Re-initialise the data
+                data = {
+                    'type': 'Feature',
+                    'properties': {
+                        'totalCrimeCount': 0,
+                        'crimeCountPerType': {}
+                    },
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': []
+                    }
+                }
+
+            data['properties']['totalCrimeCount'] += crime_count
+            data['properties']['crimeCountPerType'][crime_type] = crime_count
+            data['geometry']['coordinates'] = [coord[0], coord[1]]
+
+            last_coord = coord
 
         return geojson
 
     def min_freq(self):
-        return self._crime_freq_sr.min()
+        return self._crime_sr.min()
 
     def max_freq(self):
-        return self._crime_freq_sr.max()
+        return self._crime_sr.max()
 
 
 if __name__ == '__main__':

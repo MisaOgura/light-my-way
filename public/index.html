@@ -111,7 +111,7 @@
                 paint: {
                     // increase weight as number of crimes increases
                     'heatmap-weight': {
-                        property: 'crimes',
+                        property: 'totalCrimeCount',
                         type: 'exponential',
                         stops: [
                             [1, 0],
@@ -163,7 +163,7 @@
                 paint: {
                     // increase the radius of the circle as the zoom level and total crime value increases
                     'circle-radius': {
-                        property: 'crimes',
+                        property: 'totalCrimeCount',
                         type: 'exponential',
                         stops: [
                             [{ zoom: 15, value: 1 }, 2],
@@ -173,7 +173,7 @@
                         ]
                     },
                     'circle-color': {
-                        property: 'crimes',
+                        property: 'totalCrimeCount',
                         type: 'exponential',
                         stops: [
                             [0, 'rgba(254,229,217,0)'],
@@ -201,7 +201,7 @@
         map.on('click', 'crimes-point', function(e) {
             new mapboxgl.Popup()
                 .setLngLat(e.features[0].geometry.coordinates)
-                .setHTML('<b>No. of crimes:</b> ' + e.features[0].properties.crimes)
+                .setHTML('<b>Total crimes:</b> ' + e.features[0].properties.totalCrimeCount)
                 .addTo(map);
             });
     </script>
