@@ -256,7 +256,7 @@
             $('#cities .btn').on('click', function (e) {
                 city = e.target.value
                 const { coord, data } = cities[city]
-                map.flyTo({center: coord})
+                map.flyTo({center: coord, zoom: 10})
             })
         });
     </script>
