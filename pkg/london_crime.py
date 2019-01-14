@@ -50,10 +50,16 @@ class LondonCrime():
 
         self._crime_sr = self._df.groupby(['Coordinate', 'Crime type']).size()
 
+        crime_freq_sr = self._df.groupby('Coordinate').size()
+        self._min_crime_count = int(crime_freq_sr.min())
+        self._max_crime_count = int(crime_freq_sr.max())
+
     def to_geojson(self):
         # TODO - use https://github.com/frewsxcv/python-geojson
         geojson = {
             "type": "FeatureCollection",
+            "minCrimeCount": self._min_crime_count,
+            "maxCrimeCount": self._max_crime_count,
             "features": []
         }
 
