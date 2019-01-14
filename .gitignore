@@ -4,3 +4,4 @@ venv
 **cache**
 *.log
 .firebase
+TODO.md
