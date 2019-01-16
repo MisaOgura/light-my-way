@@ -234,12 +234,16 @@
 
                 // Interactive feature for the circle layer
                 map.on('click', `crimes-point-${city}`, function(e) {
+                    console.log(city)
+                    var coord = e.features[0].properties.coordinates
+                    console.log(e.features[0].properties)
                     var crimeCountPerType = JSON.parse(e.features[0].properties.crimeCountPerType)
 
                     new mapboxgl.Popup()
                         .setLngLat(e.features[0].geometry.coordinates)
                         .setHTML(`
                             <div>
+                                <p><b>Coordinates: </b> ${coord}</p>
                                 <p><b>Total crimes:</b> ${e.features[0].properties.totalCrimeCount}</p>
 
                                 <ul>${Object.keys(crimeCountPerType).map(type => {
